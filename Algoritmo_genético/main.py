@@ -14,7 +14,7 @@ tamanho_populacao = 100
 fitness_populacao = []
 
 def carregar_populacao():
-  with open('/content/drive/MyDrive/besouros.csv', 'r') as csvfile:
+  with open('besouros.csv', 'r') as csvfile:
     csvreader = csv.reader(csvfile)
     for row in csvreader:
       besouro = [int(row[0]), int(row[1]), int(row[2])]
