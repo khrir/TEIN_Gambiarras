@@ -30,7 +30,7 @@ def avaliacao_fitness_populacao(populacao):
         fitness_populacao.append(fitness_function(populacao[index], index)[1])
     return fitness_populacao
 
-def selecao(populacao, fitness_populacao):
+def selecao(populacao, fitness_populacao, k=3):
     # primeira seleção aleatória por torneio
     selecao_ix = randint(0, len(populacao))
     for ix in randint(0, len(populacao), k-1):
