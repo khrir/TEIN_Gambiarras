@@ -6,6 +6,7 @@ para o nosso problema, irei utilizar valores inteiros de 0 a 255
 import random
 import csv
 import numpy as np
+import tqdm
 from numpy.random import randint
 
 populacao = []
@@ -37,19 +38,6 @@ def selecao(populacao, fitness_populacao, k=3):
         if fitness_populacao[ix] < fitness_populacao[selecao_ix]:
             selecao_ix = ix
     return populacao[selecao_ix]
-    
-def ranking(populacacao, fitness_populacao):
-    sorted_fitness = fitness_populacao.copy()
-    sorted_fitness.sort()
-
-      # Ordenando a população por avaliação do menor para o maior
-      # Dessa forma, é possível organizar por ordem
-      # A menor avaliação será o 1º na ordem, e assim por diante
-    sorted_populacao = populacao.copy()
-    sorted_populacao = sorted(sorted_populacao, key = lambda x: x[0] + x[1] + x[2])
-
-    selecionado = roleta(sorted_populacao, sorted_fitness)
-    return selecionado
 
 def roleta(populacao, fitness_populacao):
     s = sum(fitness_populacao) # Soma todos os valores fitness
@@ -69,6 +57,19 @@ def roleta(populacao, fitness_populacao):
         if prop_acc[k] > lance:
             index_selecionado = k
     return populacao[index_selecionado]
+    
+def ranking(populacao, fitness_populacao):
+    sorted_fitness = fitness_populacao.copy()
+    sorted_fitness.sort()
+
+      # Ordenando a população por avaliação do menor para o maior
+      # Dessa forma, é possível organizar por ordem
+      # A menor avaliação será o 1º na ordem, e assim por diante
+    sorted_populacao = populacao.copy()
+    sorted_populacao = sorted(sorted_populacao, key = lambda x: x[0] + x[1] + x[2])
+
+    selecionado = roleta(sorted_populacao, sorted_fitness)
+    return selecionado
 
 def crossover(p1, p2):
     c1, c2 = p1.copy(), p2.copy()
@@ -100,7 +101,6 @@ def algoritmo_genetico():
         populacao = filhos
         fitness_populacao.clear()
     print("Algoritmo Genético:")
-    print(populacao)
     return [melhor_besouro, melhor_pontuacao]
 
 melhor_besouro, melhor_pontuacao = algoritmo_genetico()
